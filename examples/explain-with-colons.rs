@@ -73,7 +73,7 @@ pub fn explain<S: Write>(line: &str, mut sink: S) -> io::Result<bool> {
             return Ok(false);
         },
     };
-    writeln!(sink, "Field {:2.}:{:>22}: {}", 1, "Type", type_human_readable)?;
+    writeln!(sink, "Field {:2}:{:>22}: {}", 1, "Type", type_human_readable)?;
 
     match typ {
         "cfg" => explain_cfg(p, typ, sink),
@@ -137,22 +137,22 @@ where
                     self-signed and expected to be used in the STEED system.",
             _ => "Unknown",
         };
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 2, "Validity", hr)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 2, "Validity", hr)?;
     }
 
     // Field 3 - Key length
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {} bits", 3, "Key length", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {} bits", 3, "Key length", v)?;
     }
 
     // Field 4 - Public key algorithm
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 4, "Public key algorithm", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 4, "Public key algorithm", v)?;
     }
 
     // Field 5 - KeyID
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 5, "KeyID", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 5, "KeyID", v)?;
     }
 
     // Field 6 - Creation date
@@ -166,12 +166,12 @@ where
     // without using the =--fixed-list-mode= option used a "yyyy-mm-tt"
     // format.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 6, "Creation date", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 6, "Creation date", v)?;
     }
 
     // Field 7 - Expiration date
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 7, "Expiration date", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 7, "Expiration date", v)?;
     }
 
     // Field 8 - Certificate S/N, UID hash, trust signature info
@@ -187,7 +187,7 @@ where
             "tru" => "Trust depth and value",
             _ => "Unknown",
         };
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 8, what, v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 8, what, v)?;
     }
 
     // Field 9 -  Ownertrust
@@ -197,7 +197,7 @@ where
     // versions.  For trust signatures with a regular expression, this is
     // the regular expression value, quoted as in field 10.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 9, "Ownertrust", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 9, "Ownertrust", v)?;
     }
 
     // Field 10 - User-ID
@@ -214,7 +214,7 @@ where
             let mut p = v.split(' ');
             let count = p.next().unwrap_or_default();
             let total_size = p.next().unwrap_or_default();
-            writeln!(sink, "Field {:2.}:{:>22}: {} subpackets, {} bytes total",
+            writeln!(sink, "Field {:2}:{:>22}: {} subpackets, {} bytes total",
                      10, "User attribute", count, total_size)?;
         } else {
             let what = match typ {
@@ -222,7 +222,7 @@ where
                 "grp" => "Keygrip",
                 _ => "User ID",
             };
-            writeln!(sink, "Field {:2.}:{:>22}: {}", 10, what, v)?;
+            writeln!(sink, "Field {:2}:{:>22}: {}", 10, what, v)?;
         }
     }
 
@@ -238,7 +238,7 @@ where
     // "rev" and "rvs" may be followed by a comma and a 2 digit hexnumber
     // with the revocation reason.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 11, "Signature class", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 11, "Signature class", v)?;
     }
 
     // Field 12 - Key capabilities
@@ -259,7 +259,7 @@ where
     // letters to denote the _usable_ capabilities of the entire key, and
     // a potential letter 'D' to indicate a disabled key.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 12, "Key capabilities", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 12, "Key capabilities", v)?;
     }
 
     // Field 13 - Issuer certificate fingerprint or other info
@@ -283,14 +283,14 @@ where
     // if the key is missing but the signature carries an issuer
     // fingerprint as meta data.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 13, "Issuer certificate fingerprint", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 13, "Issuer certificate fingerprint", v)?;
     }
 
     // Field 14 - Flag field
     //
     // Flag field used in the --edit-key menu output
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 14, "Flag field", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 14, "Flag field", v)?;
     }
 
     // Field 15 - S/N of a token
@@ -300,7 +300,7 @@ where
     // protect mode 1001).  If the option --with-secret is used and a
     // secret key is available for the public key, a '+' indicates this.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 15, "Token S/N", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 15, "Token S/N", v)?;
     }
 
     // Field 16 - Hash algorithm
@@ -308,7 +308,7 @@ where
     // For sig records, this is the used hash algorithm.  For example:
     // 2 = SHA-1, 8 = SHA-256.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 16, "Hash algorithm", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 16, "Hash algorithm", v)?;
     }
 
     // Field 17 - Curve name
@@ -316,7 +316,7 @@ where
     // For pub, sub, sec, ssb, crt, and crs records this field is used
     // for the ECC curve name.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 17, "Curve name", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 17, "Curve name", v)?;
     }
 
     // Field 18 - Compliance flags
@@ -330,7 +330,7 @@ where
     // - 23 :: The key is compliant with compliance mode "de-vs".
     // - 6001 :: Screening hit on the ROCA vulnerability.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 18, "Compliance flags", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 18, "Compliance flags", v)?;
     }
 
     // Field 19 - Last update
@@ -341,7 +341,7 @@ where
     // update time of a user ID is defined by a lookup of the key using a
     // trusted mapping from mail address to key.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 19, "Last update", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 19, "Last update", v)?;
     }
 
     // Field 20 - Origin
@@ -350,7 +350,7 @@ where
     // optionally followed by a space and an URL.  This goes along with
     // the previous field.  The URL is quoted in C style.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 20, "Origin", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 20, "Origin", v)?;
     }
 
     // Field 21 - Comment
@@ -359,7 +359,7 @@ where
     // the the comment field of the recocation reason.  The value is
     // quoted in C style.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 21, "Comment", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 21, "Comment", v)?;
     }
 
     Ok(true)
@@ -375,11 +375,11 @@ where
 {
     // Key-value pairs.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 2, "Key", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 2, "Key", v)?;
     }
 
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 3, "Value", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 3, "Value", v)?;
     }
 
     Ok(true)
@@ -398,15 +398,15 @@ where
     //     !  !------ for information number of bits in the value
     //     !--------- index (eg. DSA goes from 0 to 3: p,q,g,y)
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 2, "Index", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 2, "Index", v)?;
     }
 
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {} bits", 3, "Length", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {} bits", 3, "Length", v)?;
     }
 
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 4, "Value", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 4, "Value", v)?;
     }
 
     Ok(true)
@@ -422,7 +422,7 @@ where
 {
     // Field 2 :: Subpacket number as per RFC-4880 and later.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 2, "Subpacket number", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 2, "Subpacket number", v)?;
     }
 
     // Field 3 :: Flags in hex.  Currently the only two bits assigned
@@ -430,7 +430,7 @@ where
     //            hashed part of the signature, and 2, to indicate the
     //            subpacket was marked critical.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 3, "Flags", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 3, "Flags", v)?;
     }
 
     // Field 4 :: Length of the subpacket.  Note that this is the
@@ -438,14 +438,14 @@ where
     //            5 below.  Due to the need for %-encoding, the length
     //            of field 5 may be up to 3x this value.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 4, "Subpacket length", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 4, "Subpacket length", v)?;
     }
 
     // Field 5 :: The subpacket data.  Printable ASCII is shown as
     //            ASCII, but other values are rendered as %XX where XX
     //            is the hex value for the byte.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 5, "Subpacket data", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 5, "Subpacket data", v)?;
     }
 
     Ok(true)
@@ -460,47 +460,47 @@ where
 {
     // Field 2 :: tfs record version (must be 1)
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 2, "Record version", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 2, "Record version", v)?;
     }
 
     // Field 3 :: validity -  A number with validity code.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 3, "# with validity code", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 3, "# with validity code", v)?;
     }
 
     // Field 4 :: signcount - The number of signatures seen.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 4, "# signatures seen", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 4, "# signatures seen", v)?;
     }
 
     // Field 5 :: encrcount - The number of encryptions done.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 5, "# encryptions done", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 5, "# encryptions done", v)?;
     }
 
     // Field 6 :: policy - A string with the policy
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 6, "Policy", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 6, "Policy", v)?;
     }
 
     // Field 7 :: signture-first-seen - a timestamp or 0 if not known.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 7, "First seen", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 7, "First seen", v)?;
     }
 
     // Field 8 :: signature-most-recent-seen - a timestamp or 0 if not known.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 8, "Most recent seen", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 8, "Most recent seen", v)?;
     }
 
     // Field 9 :: encryption-first-done - a timestamp or 0 if not known.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 9, "First encryption @", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 9, "First encryption @", v)?;
     }
 
     // Field 10 :: encryption-most-recent-done - a timestamp or 0 if not known.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 10, "Recent encryption @", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 10, "Recent encryption @", v)?;
     }
 
     Ok(true)
@@ -521,7 +521,7 @@ where
     //              - t :: Trustdb was built with a different trust model
     //                     than the one we are using now.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 2, "Reason for staleness", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 2, "Reason for staleness", v)?;
     }
 
     // - Field 3 :: Trust model
@@ -540,36 +540,36 @@ where
             "1" => "PGP",
             v => v,
         };
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 3, "Trust model", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 3, "Trust model", v)?;
     }
 
     // - Field 4 :: Date trustdb was created in seconds since Epoch.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 4, "Creation time", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 4, "Creation time", v)?;
     }
 
     // - Field 5 :: Date trustdb will expire in seconds since Epoch.
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 5, "Expiration time", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 5, "Expiration time", v)?;
     }
 
     // - Field 6 :: Number of marginally trusted users to introduce a new
     //              key signer (gpg's option --marginals-needed).
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 6, "Marginals needed", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 6, "Marginals needed", v)?;
     }
 
     // - Field 7 :: Number of completely trusted users to introduce a new
     //              key signer.  (gpg's option --completes-needed)
     //
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 7, "Completes needed", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 7, "Completes needed", v)?;
     }
 
     // - Field 8 :: Maximum depth of a certification chain. (gpg's option
     //              --max-cert-depth)
     if let Some(v) = p.next().filter(|v| ! v.is_empty()) {
-        writeln!(sink, "Field {:2.}:{:>22}: {}", 8, "Max cert depth", v)?;
+        writeln!(sink, "Field {:2}:{:>22}: {}", 8, "Max cert depth", v)?;
     }
 
     Ok(true)
